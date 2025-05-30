@@ -1,0 +1,73 @@
+1. Named Exports
+
+// export file 
+export function add(x, y) {
+  return x + y;
+}
+
+export const PI = 3.14159;
+
+export class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+}
+
+//import file
+import { add, PI, Circle } from './math.js';
+
+console.log(add(2, 3));
+
+2. Default Export
+
+//export file
+export default function greet(name) {
+  return `Hello, ${name}`;
+}
+
+//import file
+import greetUser from './greet.js'; // name can be anything
+
+console.log(greetUser("John"));
+
+ 3. Exporting Together
+
+ function sayHello(name) {
+  return `Hello, ${name}`;
+}
+
+//export file
+function sayBye(name) {
+  return `Bye, ${name}`;
+}
+
+export { sayHello }; // named export
+export default sayBye; // default export
+
+//import file
+import sayBye, { sayHello } from './utils.js';
+
+
+4. Re-exporting from another module
+
+math.js
+
+export function add(x, y) {
+  return x + y;
+}
+utils.js
+
+export function greet(name) {
+  return `Hello, ${name}`;
+}
+
+✅ index.js — (Re-exporting from both)
+
+export * from './math.js';    // re-exports everything from math.js
+export * from './utils.js';   // re-exports everything from utils.js
+
+
+Now in app.js
+
+import { add, greet } from './index.js';  // only one import line
+
